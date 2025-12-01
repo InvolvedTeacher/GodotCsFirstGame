@@ -267,3 +267,15 @@ autoplay = "idle"
 [node name="Collision" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4)
 shape = SubResource("CapsuleShape2D_yautc")
+
+[node name="MovementStateMachine" type="Node" parent="."]
+
+[node name="IdleMovementState" type="Node" parent="MovementStateMachine"]
+
+[node name="RunMovementState" type="Node" parent="MovementStateMachine"]
+
+[node name="JumpMovementState" type="Node" parent="MovementStateMachine"]
+
+[node name="FallMovementState" type="Node" parent="MovementStateMachine"]
+
+[node name="DoubleJumpMovementState" type="Node" parent="MovementStateMachine"]
