@@ -11,6 +11,7 @@ public partial class RunMovementState : State
 
     public override void Enter()
     {
+        _player.SetDoubleJumpAvailable(true);
         _player.SetAnimation("run");
     }
 

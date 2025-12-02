@@ -37,4 +37,10 @@ public partial class FallMovementState : State
                 stateMachine.TransitionTo("IdleMovementState");
         }
     }
+
+    public override void HandleInput(InputEvent @event)
+    {
+        if (@event.IsActionPressed("jump") && _player.IsDoubleJumpAvailable())
+            stateMachine.TransitionTo("DoubleJumpMovementState");
+    }
 }

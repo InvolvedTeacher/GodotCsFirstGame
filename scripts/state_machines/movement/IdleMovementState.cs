@@ -11,6 +11,7 @@ public partial class IdleMovementState : State
 
     public override void Enter()
     {
+        _player.SetDoubleJumpAvailable(true);
         _player.SetAnimation("idle");
     }
 

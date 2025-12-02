@@ -158,9 +158,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ctbgc")
 }],
-"loop": true,
+"loop": false,
 "name": &"double_jump",
-"speed": 20.0
+"speed": 40.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -267,10 +267,11 @@ scale = Vector2(2, 2)
 collision_layer = 2
 script = ExtResource("1_8clrt")
 horizontal_speed = 200.0
+jump_speed = -400.0
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_fr1um")
-animation = &"idle"
+animation = &"double_jump"
 autoplay = "idle"
 
 [node name="Collision" type="CollisionShape2D" parent="."]
@@ -295,3 +296,5 @@ script = ExtResource("11_0l3u3")
 
 [node name="DoubleJumpMovementState" type="Node" parent="MovementStateMachine"]
 script = ExtResource("12_woncx")
+
+[connection signal="animation_finished" from="Sprite" to="MovementStateMachine/DoubleJumpMovementState" method="_on_sprite_animation_finished"]
