@@ -1,57 +1,61 @@
 using Godot;
+using Game.Characters;
 
-public partial class DoubleJumpMovementState : State
+namespace Game.StateMachines.MovementStateMachine
 {
-    private NinjaFrog _player;
-
-    public override void Ready()
+    public partial class DoubleJumpMovementState : State
     {
-        _player = (NinjaFrog)GetTree().GetFirstNodeInGroup("NinjaFrog");
-    }
+        private NinjaFrog _player;
 
-    public override void Enter()
-    {
-        _player.SetDoubleJumpAvailable(false);
-        _player.SetAnimation("double_jump");
-
-        Vector2 velocity = _player.Velocity;
-        velocity.Y = _player.GetJumpSpeed();
-        _player.Velocity = velocity;
-    }
-    public override void UpdatePhysics(double delta)
-    {
-        Vector2 velocity = _player.Velocity;
-
-        velocity += _player.GetGravity() * (float)delta;
-
-        float direction = Input.GetAxis("move_left", "move_right");
-        if (direction != 0f)
+        public override void Ready()
         {
-            velocity.X = direction * _player.GetHorizontalSpeed();
+            _player = (NinjaFrog)GetTree().GetFirstNodeInGroup("NinjaFrog");
         }
 
-        _player.Velocity = velocity;
-        _player.MoveAndSlide();
-
-        if (_player.IsOnFloor())
+        public override void Enter()
         {
-            if (_player.Velocity.X != 0)
-                stateMachine.TransitionTo("RunMovementState");
+            _player.SetDoubleJumpAvailable(false);
+            _player.SetAnimation("double_jump");
+
+            Vector2 velocity = _player.Velocity;
+            velocity.Y = _player.GetJumpSpeed();
+            _player.Velocity = velocity;
+        }
+        public override void UpdatePhysics(double delta)
+        {
+            Vector2 velocity = _player.Velocity;
+
+            velocity += _player.GetGravity() * (float)delta;
+
+            float direction = Input.GetAxis("move_left", "move_right");
+            if (direction != 0f)
+            {
+                velocity.X = direction * _player.GetHorizontalSpeed();
+            }
+
+            _player.Velocity = velocity;
+            _player.MoveAndSlide();
+
+            if (_player.IsOnFloor())
+            {
+                if (_player.Velocity.X != 0)
+                    stateMachine.TransitionTo("RunMovementState");
+                else
+                    stateMachine.TransitionTo("IdleMovementState");
+            }
             else
-                stateMachine.TransitionTo("IdleMovementState");
+            {
+                if (_player.Velocity.Y > 0)
+                    stateMachine.TransitionTo("FallMovementState");
+            }
         }
-        else
-        {
-            if (_player.Velocity.Y > 0)
-                stateMachine.TransitionTo("FallMovementState");
-        }
-    }
 
-    public void _on_sprite_animation_finished()
-    {
-        if (_player.GetPlayingAnimationName() == "double_jump")
+        public void _on_sprite_animation_finished()
         {
-            _player.SetAnimation("jump");
+            if (_player.GetPlayingAnimationName() == "double_jump")
+            {
+                _player.SetAnimation("jump");
+            }
         }
     }
 }
