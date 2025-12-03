@@ -3,16 +3,21 @@ using Godot;
 public partial class RunMovementState : State
 {
     private NinjaFrog _player;
+    private Timer _coyote_timer;
+    private bool coyote_time_available;
 
     public override void Ready()
     {
         _player = (NinjaFrog)GetTree().GetFirstNodeInGroup("NinjaFrog");
+        _coyote_timer = GetNode<Timer>("CoyoteTimer");
     }
 
     public override void Enter()
     {
         _player.SetDoubleJumpAvailable(true);
         _player.SetAnimation("run");
+
+        coyote_time_available = true;
     }
 
     public override void UpdatePhysics(double delta)
@@ -37,18 +42,39 @@ public partial class RunMovementState : State
             if (_player.Velocity.Y < 0)
                 stateMachine.TransitionTo("JumpMovementState");
             else
-                stateMachine.TransitionTo("FallMovementState");
+            {
+                if (coyote_time_available)
+                {
+                    if (_coyote_timer.IsStopped())
+                        _coyote_timer.Start();
+                }
+                else
+                    stateMachine.TransitionTo("FallMovementState");
+            }
         }
         else
         {
-            if (_player.Velocity.X == 0f)
-                stateMachine.TransitionTo("IdleMovementState");
+            coyote_time_available = true;
+            _coyote_timer.Stop();
         }
+
+        if (_player.Velocity.X == 0f)
+            stateMachine.TransitionTo("IdleMovementState");
+    }
+
+    public override void Exit()
+    {
+        _coyote_timer.Stop();
     }
 
     public override void HandleInput(InputEvent @event)
     {
         if (@event.IsActionPressed("jump"))
             stateMachine.TransitionTo("JumpMovementState");
+    }
+
+    public void _on_coyote_timer_timeout()
+    {
+        coyote_time_available = false;
     }
 }
