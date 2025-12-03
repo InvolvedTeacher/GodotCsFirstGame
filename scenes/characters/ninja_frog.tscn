@@ -1,6 +1,6 @@
 [gd_scene load_steps=46 format=3 uid="uid://cfisfqplodffr"]
 
-[ext_resource type="Script" uid="uid://cyc3l3hn7dlqg" path="res://scripts/characters/ninja_frog/NinjaFrog.cs" id="1_8clrt"]
+[ext_resource type="Script" uid="uid://cyc3l3hn7dlqg" path="res://scripts/characters/NinjaFrog.cs" id="1_8clrt"]
 [ext_resource type="Texture2D" uid="uid://bdi2n56sixd5e" path="res://assets/characters/ninja_frog/double_jump.png" id="1_g7eyi"]
 [ext_resource type="Texture2D" uid="uid://o81y4e5ihbgl" path="res://assets/characters/ninja_frog/idle.png" id="1_hh70b"]
 [ext_resource type="Texture2D" uid="uid://c0vli2whmmnuu" path="res://assets/characters/ninja_frog/fall.png" id="1_plmig"]
