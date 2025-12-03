@@ -1,4 +1,5 @@
 using Godot;
+using Game.StateMachines;
 
 namespace Game.Characters
 {
@@ -8,10 +9,12 @@ namespace Game.Characters
         [Export] private float jump_speed;
         private bool double_jump_available;
         private AnimatedSprite2D sprite;
+        private StateMachine movement_state_machine;
 
         public override void _Ready()
         {
             sprite = GetNode<AnimatedSprite2D>("Sprite");
+            movement_state_machine = GetNode<StateMachine>("MovementStateMachine");
         }
 
         public override void _PhysicsProcess(double _delta)
@@ -20,11 +23,11 @@ namespace Game.Characters
                 sprite.FlipH = Velocity.X < 0;
         }
 
-        public void SetAnimation(string newAnimation)
+        public void SetAnimation(string new_animation)
         {
             if (sprite == null) return;
 
-            sprite.Play(newAnimation);
+            sprite.Play(new_animation);
         }
 
         public float GetHorizontalSpeed()
@@ -50,6 +53,22 @@ namespace Game.Characters
         public string GetPlayingAnimationName()
         {
             return sprite.Animation;
+        }
+
+        public void Kill()
+        {
+            movement_state_machine.TransitionTo("DieMovementState");
+            sprite.Translate(new Vector2(0, 10));
+        }
+
+        public float GetSpriteRotation()
+        {
+            return sprite.RotationDegrees;
+        }
+
+        public void SetSpriteRotation(float new_rotation)
+        {
+            sprite.RotationDegrees = new_rotation;
         }
     }
 }

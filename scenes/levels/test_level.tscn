@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=4 uid="uid://dq01v7v0ybcw1"]
+[gd_scene load_steps=7 format=4 uid="uid://dq01v7v0ybcw1"]
 
 [ext_resource type="Texture2D" uid="uid://daonsivkr5w7a" path="res://assets/levels/test_level/background.png" id="1_jbqir"]
 [ext_resource type="Texture2D" uid="uid://dua4jj12iajsf" path="res://assets/levels/tile_set.png" id="2_yautc"]
 [ext_resource type="PackedScene" uid="uid://cfisfqplodffr" path="res://scenes/characters/ninja_frog.tscn" id="3_fr1um"]
+[ext_resource type="PackedScene" uid="uid://hyo8voh18h1j" path="res://scenes/obstacles/saw.tscn" id="4_v45ci"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fr1um"]
 texture = ExtResource("2_yautc")
@@ -329,3 +330,6 @@ tile_set = SubResource("TileSet_v45ci")
 
 [node name="Player" parent="." instance=ExtResource("3_fr1um")]
 position = Vector2(34, 273)
+
+[node name="Saw" parent="." instance=ExtResource("4_v45ci")]
+position = Vector2(112, 277)

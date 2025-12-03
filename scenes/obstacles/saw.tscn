@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://hyo8voh18h1j"]
+
+[ext_resource type="Texture2D" uid="uid://drgso0nktja3n" path="res://assets/obstacles/saw/saw.png" id="1_iiwqd"]
+[ext_resource type="Script" uid="uid://cfp05vu5phvpd" path="res://scripts/obstacles/saw/Saw.cs" id="1_n1cf7"]
+[ext_resource type="Script" uid="uid://cawo5ok3n8bnt" path="res://scripts/obstacles/saw/sprite.gd" id="2_wxn5r"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wxn5r"]
+radius = 19.0
+
+[node name="Saw" type="Area2D"]
+texture_filter = 1
+scale = Vector2(2, 2)
+collision_layer = 4
+collision_mask = 2
+input_pickable = false
+monitorable = false
+script = ExtResource("1_n1cf7")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_iiwqd")
+script = ExtResource("2_wxn5r")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_wxn5r")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
