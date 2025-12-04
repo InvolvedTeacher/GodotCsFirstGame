@@ -14,6 +14,7 @@ namespace Game.StateMachines.MovementStateMachine
 
         public override void Enter()
         {
+            _player.EmitSignal("Jumped");
             _player.SetDoubleJumpAvailable(false);
             _player.SetAnimation("double_jump");
 

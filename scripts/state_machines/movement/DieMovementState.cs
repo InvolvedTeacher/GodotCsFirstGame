@@ -19,6 +19,7 @@ namespace Game.StateMachines.MovementStateMachine
         {
             _player.SetDoubleJumpAvailable(true);
             _player.SetAnimation("die");
+            _player.SetSpriteTranslation(new Vector2(0, 10));
             _player.Velocity = -_player.Velocity;
             if (_player.Velocity.X < 0)
                 die_direction = -1f;

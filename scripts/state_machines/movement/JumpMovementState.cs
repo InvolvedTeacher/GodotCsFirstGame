@@ -14,6 +14,7 @@ namespace Game.StateMachines.MovementStateMachine
 
         public override void Enter()
         {
+            _player.EmitSignal("Jumped");
             _player.SetAnimation("jump");
 
             Vector2 velocity = _player.Velocity;

@@ -15,6 +15,9 @@ namespace Game.StateMachines.DuckStateMachine
         public override void Enter()
         {
             _duck.SetAnimation("jump");
+            Vector2 velocity = _duck.Velocity;
+            velocity.Y += _duck.jump_speed;
+            _duck.Velocity = velocity;
         }
 
         public override void UpdatePhysics(double delta)

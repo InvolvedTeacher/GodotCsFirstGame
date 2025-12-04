@@ -11,6 +11,8 @@ namespace Game.Characters
         private AnimatedSprite2D sprite;
         private StateMachine movement_state_machine;
 
+        [Signal] public delegate void JumpedEventHandler();
+
         public override void _Ready()
         {
             sprite = GetNode<AnimatedSprite2D>("Sprite");
@@ -57,8 +59,8 @@ namespace Game.Characters
 
         public void Kill()
         {
+            CollisionMask = 1;
             movement_state_machine.TransitionTo("DieMovementState");
-            sprite.Translate(new Vector2(0, 10));
         }
 
         public float GetSpriteRotation()
@@ -69,6 +71,11 @@ namespace Game.Characters
         public void SetSpriteRotation(float new_rotation)
         {
             sprite.RotationDegrees = new_rotation;
+        }
+
+        public void SetSpriteTranslation(Vector2 translation)
+        {
+            sprite.Translate(translation);
         }
     }
 }

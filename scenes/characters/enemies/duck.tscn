@@ -198,6 +198,7 @@ scale = Vector2(2, 2)
 collision_layer = 8
 collision_mask = 3
 script = ExtResource("1_ifyie")
+jump_speed = -400.0
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_6656o")
@@ -231,3 +232,6 @@ script = ExtResource("8_ifyie")
 
 [node name="FallDuckState" type="Node" parent="DuckStateMachine"]
 script = ExtResource("9_00ajo")
+
+[connection signal="body_entered" from="ObservationArea" to="DuckStateMachine/IdleDuckState" method="_on_observation_area_body_entered"]
+[connection signal="body_exited" from="ObservationArea" to="DuckStateMachine/IdleDuckState" method="_on_observation_area_body_exited"]

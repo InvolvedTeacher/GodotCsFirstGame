@@ -1,4 +1,5 @@
 using Godot;
+using Game.Characters;
 using Game.Characters.Enemies;
 
 namespace Game.StateMachines.DuckStateMachine
@@ -21,6 +22,24 @@ namespace Game.StateMachines.DuckStateMachine
         {
             if (!_duck.IsOnFloor())
                 stateMachine.TransitionTo("FallDuckState");
+        }
+
+        public void _on_observation_area_body_entered(Node2D body)
+        {
+            if (body.GetType() == typeof(NinjaFrog))
+                ((NinjaFrog)body).Jumped += _on_observed_body_jump;
+        }
+
+        public void _on_observation_area_body_exited(Node2D body)
+        {
+            if (body.GetType() == typeof(NinjaFrog))
+                ((NinjaFrog)body).Jumped -= _on_observed_body_jump;
+        }
+
+        public void _on_observed_body_jump()
+        {
+            if (_duck.IsOnFloor())
+                stateMachine.TransitionTo("JumpDuckState");
         }
     }
 }
