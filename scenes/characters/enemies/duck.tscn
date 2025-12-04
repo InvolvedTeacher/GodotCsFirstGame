@@ -205,9 +205,10 @@ jump_speed = -400.0
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_6656o")
-animation = &"idle"
+animation = &"jump_anticipation"
 autoplay = "idle"
-frame_progress = 0.17165501
+frame = 3
+frame_progress = 1.0
 
 [node name="WeakPointCollision" type="CollisionShape2D" parent="."]
 position = Vector2(-3, -7.25)
@@ -242,5 +243,6 @@ script = ExtResource("8_ifyie")
 [node name="FallDuckState" type="Node" parent="DuckStateMachine"]
 script = ExtResource("9_00ajo")
 
+[connection signal="animation_finished" from="Sprite" to="DuckStateMachine/JumpDuckState" method="_on_sprite_animation_finished"]
 [connection signal="body_entered" from="ObservationArea" to="DuckStateMachine/IdleDuckState" method="_on_observation_area_body_entered"]
 [connection signal="body_exited" from="ObservationArea" to="DuckStateMachine/IdleDuckState" method="_on_observation_area_body_exited"]

@@ -31,5 +31,10 @@ namespace Game.Characters.Enemies
 
             _sprite.Play(new_animation);
         }
+
+        public string GetPlayingAnimationName()
+        {
+            return _sprite.Animation;
+        }
     }
 }

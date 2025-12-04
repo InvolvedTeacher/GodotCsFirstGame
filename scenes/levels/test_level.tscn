@@ -333,7 +333,7 @@ tile_set = SubResource("TileSet_v45ci")
 position = Vector2(34, 273)
 
 [node name="Saw" parent="." instance=ExtResource("4_v45ci")]
-position = Vector2(112, 277)
+position = Vector2(572, 274)
 
 [node name="Duck" parent="." instance=ExtResource("5_48ne7")]
-position = Vector2(233, 215)
+position = Vector2(227, 208)

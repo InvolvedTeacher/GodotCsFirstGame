@@ -59,7 +59,7 @@ namespace Game.Characters
 
         public void Kill()
         {
-            CollisionMask = 1;
+            CollisionLayer = 16;
             movement_state_machine.TransitionTo("DieMovementState");
         }
 
