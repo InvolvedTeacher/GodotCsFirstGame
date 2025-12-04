@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://1upvo6puh2qp"]
+[gd_scene load_steps=36 format=3 uid="uid://1upvo6puh2qp"]
 
 [ext_resource type="Script" uid="uid://2lb2t5fdb8jw" path="res://scripts/characters/enemies/Duck.cs" id="1_ifyie"]
 [ext_resource type="Texture2D" uid="uid://dkbpae1a12jyu" path="res://assets/characters/enemies/duck/hit.png" id="1_vlugv"]
@@ -186,8 +186,11 @@ animations = [{
 "speed": 15.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ifyie"]
+size = Vector2(13, 5.5)
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_vlugv"]
-radius = 13.509256
+radius = 10.511898
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vlugv"]
 size = Vector2(107.5, 92)
@@ -206,8 +209,14 @@ animation = &"idle"
 autoplay = "idle"
 frame_progress = 0.17165501
 
+[node name="WeakPointCollision" type="CollisionShape2D" parent="."]
+position = Vector2(-3, -7.25)
+shape = SubResource("RectangleShape2D_ifyie")
+one_way_collision = true
+debug_color = Color(0.14617631, 0.6458787, 9.62615e-07, 0.41960785)
+
 [node name="HitboxCollision" type="CollisionShape2D" parent="."]
-position = Vector2(-1.5, 4)
+position = Vector2(0, 6.5)
 shape = SubResource("CircleShape2D_vlugv")
 
 [node name="ObservationArea" type="Area2D" parent="."]

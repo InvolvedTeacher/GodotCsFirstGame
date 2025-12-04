@@ -27,7 +27,6 @@ namespace Game.StateMachines.DuckStateMachine
             velocity += _duck.GetGravity() * (float)delta;
 
             _duck.Velocity = velocity;
-            _duck.MoveAndSlide();
 
             if (_duck.Velocity.Y > 0)
             {
