@@ -1,10 +1,11 @@
-[gd_scene load_steps=46 format=3 uid="uid://cfisfqplodffr"]
+[gd_scene load_steps=55 format=3 uid="uid://cfisfqplodffr"]
 
-[ext_resource type="Script" uid="uid://cyc3l3hn7dlqg" path="res://scripts/characters/ninja_frog/NinjaFrog.cs" id="1_8clrt"]
+[ext_resource type="Script" uid="uid://cyc3l3hn7dlqg" path="res://scripts/characters/NinjaFrog.cs" id="1_8clrt"]
 [ext_resource type="Texture2D" uid="uid://bdi2n56sixd5e" path="res://assets/characters/ninja_frog/double_jump.png" id="1_g7eyi"]
 [ext_resource type="Texture2D" uid="uid://o81y4e5ihbgl" path="res://assets/characters/ninja_frog/idle.png" id="1_hh70b"]
 [ext_resource type="Texture2D" uid="uid://c0vli2whmmnuu" path="res://assets/characters/ninja_frog/fall.png" id="1_plmig"]
 [ext_resource type="Texture2D" uid="uid://3eel3817i77i" path="res://assets/characters/ninja_frog/run.png" id="2_a40fe"]
+[ext_resource type="Texture2D" uid="uid://b7xteujhdrepr" path="res://assets/characters/ninja_frog/die.png" id="2_woncx"]
 [ext_resource type="Texture2D" uid="uid://cmdfm8icrv0kn" path="res://assets/characters/ninja_frog/jump.png" id="3_g7eyi"]
 [ext_resource type="Script" uid="uid://v7qphqncv08v" path="res://scripts/state_machines/StateMachine.cs" id="6_w5ijl"]
 [ext_resource type="Script" uid="uid://5vfyxgfkcb0n" path="res://scripts/state_machines/movement/IdleMovementState.cs" id="7_tvgsu"]
@@ -12,6 +13,35 @@
 [ext_resource type="Script" uid="uid://cstqao81pl5s8" path="res://scripts/state_machines/movement/JumpMovementState.cs" id="10_a44gg"]
 [ext_resource type="Script" uid="uid://bid80e6egpgsk" path="res://scripts/state_machines/movement/FallMovementState.cs" id="11_0l3u3"]
 [ext_resource type="Script" uid="uid://cnj7rvhyq16sk" path="res://scripts/state_machines/movement/DoubleJumpMovementState.cs" id="12_woncx"]
+[ext_resource type="Script" uid="uid://bqjf0d040ty7e" path="res://scripts/state_machines/movement/DieMovementState.cs" id="13_0l3u3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1o2nv"]
+atlas = ExtResource("2_woncx")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p8jqy"]
+atlas = ExtResource("2_woncx")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x2u2v"]
+atlas = ExtResource("2_woncx")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nxl0i"]
+atlas = ExtResource("2_woncx")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6axkx"]
+atlas = ExtResource("2_woncx")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_54yvm"]
+atlas = ExtResource("2_woncx")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l45r4"]
+atlas = ExtResource("2_woncx")
+region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dssjk"]
 atlas = ExtResource("1_g7eyi")
@@ -139,6 +169,32 @@ region = Rect2(352, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fr1um"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1o2nv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p8jqy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x2u2v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nxl0i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6axkx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_54yvm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l45r4")
+}],
+"loop": false,
+"name": &"die",
+"speed": 15.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_dssjk")
@@ -271,8 +327,10 @@ jump_speed = -400.0
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_fr1um")
-animation = &"double_jump"
+animation = &"die"
 autoplay = "idle"
+frame = 6
+frame_progress = 1.0
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4)
@@ -302,5 +360,13 @@ script = ExtResource("11_0l3u3")
 [node name="DoubleJumpMovementState" type="Node" parent="MovementStateMachine"]
 script = ExtResource("12_woncx")
 
+[node name="DieMovementState" type="Node" parent="MovementStateMachine"]
+script = ExtResource("13_0l3u3")
+
+[node name="DeathTimer" type="Timer" parent="MovementStateMachine/DieMovementState"]
+wait_time = 0.5
+one_shot = true
+
 [connection signal="animation_finished" from="Sprite" to="MovementStateMachine/DoubleJumpMovementState" method="_on_sprite_animation_finished"]
 [connection signal="timeout" from="MovementStateMachine/RunMovementState/CoyoteTimer" to="MovementStateMachine/RunMovementState" method="_on_coyote_timer_timeout"]
+[connection signal="timeout" from="MovementStateMachine/DieMovementState/DeathTimer" to="MovementStateMachine/DieMovementState" method="_on_death_timer_timeout"]
